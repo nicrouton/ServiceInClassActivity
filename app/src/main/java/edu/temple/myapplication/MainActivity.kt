@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.widget.Button
 import java.util.Objects
+import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,11 +41,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.pauseButton).setOnClickListener {
-
+            if (isConnected) timerBinder.pause()
         }
         
         findViewById<Button>(R.id.stopButton).setOnClickListener {
-
+            if (isConnected) timerBinder.stop()
         }
     }
 
