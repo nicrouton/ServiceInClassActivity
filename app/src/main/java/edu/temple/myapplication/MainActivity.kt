@@ -7,6 +7,8 @@ import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import java.util.Objects
 import kotlin.concurrent.timer
@@ -47,6 +49,26 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.stopButton).setOnClickListener {
             if (isConnected) timerBinder.stop()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var menuOptionMatch : Boolean = false
+
+        when (item.itemId) {
+            R.id.action_play_button -> if (isConnected) timerBinder.start(50)
+            //menuOptionMatch = true
+            R.id.action_pause_button -> if (isConnected) timerBinder.pause()
+            R.id.action_stop_button -> if (isConnected) timerBinder.stop()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
